@@ -52,3 +52,7 @@ module.exports.loginUser = async (req, res, next) => {
    const token =await user.generateAuthToken();
    res.status(200).json({token,user ,message:'Login Successfull'})
 }
+
+module.exports.profile=async (req,res,next) => { 
+   res.status(200).json(req.user)
+ }
