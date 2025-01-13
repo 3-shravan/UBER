@@ -14,13 +14,13 @@ const UserLogin = () => {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    console.log(formData);
+    setFormData({ email: "", password: "" });
   };
 
   return (
     <div className="h-screen w-full flex flex-col">
       <img
-        className="w-14  mt-8 mx-4 "
+        className="w-16  mt-11 ml-5 "
         src="https://upload.wikimedia.org/wikipedia/commons/c/cc/Uber_logo_2018.png"
         alt=""
       />
@@ -30,10 +30,10 @@ const UserLogin = () => {
           submitHandler(e);
         }}
       >
-        <div className="  flex mx-4 mt-6 flex-col h-full">
+        <div className="  flex mx-5 mt-8 flex-col h-full">
           <label
             htmlFor="email"
-            className="font-semibold text-zinc-900 leading-7 text-base py-1"
+            className="font-semibold text-zinc-900 leading-7 text-xl py-1"
           >
             What's your email
           </label>
@@ -46,11 +46,11 @@ const UserLogin = () => {
             }}
             placeholder="email@example.com"
             required
-            className="  text-sm rounded bg-[#eeee] py-2.5 px-3 placeholder-zinc-500 font-semibold border-none focus:outline-yellow-500 "
+            className="  rounded bg-[#eeee] py-3 px-4 placeholder-zinc-500 font-semibold border-none focus:outline-yellow-500 "
           />
           <label
             htmlFor="password"
-            className="font-semibold text-zinc-800 mt-3 py-1 text-base leading-7"
+            className="font-semibold text-zinc-900 leading-7 mt-4 text-xl py-1"
           >
             Enter Password
           </label>
@@ -63,16 +63,16 @@ const UserLogin = () => {
             }}
             placeholder="password"
             required
-            className="  text-sm rounded bg-[#eeee] py-2.5 px-3 placeholder-zinc-500 font-semibold border-none focus:outline-yellow-500"
+            className="rounded bg-[#eeee] py-3 px-4 placeholder-zinc-500 font-semibold border-none focus:outline-yellow-500"
           />
-          <button className="border-none p-1 font-bold text-white mt-5 leading-7 rounded w-full bg-black">
+          <button className="border-none p-3 text-lg font-bold text-white mt-6  rounded w-full bg-black">
             Login
           </button>
         </div>
       </form>
 
-      <div className="flex items-center justify-center mt-1 w-full">
-        <span className="text-xs font-medium text-zinc-800">
+      <div className="flex items-center justify-center mt-1.5 w-full">
+        <span className="text-sm font-medium text-zinc-800">
           {" "}
           New here ?{" "}
           <Link to="/userRegister" className="text-blue-400">
@@ -81,10 +81,10 @@ const UserLogin = () => {
         </span>
       </div>
 
-      <div className=" flex mx-4 mt-6 flex-col h-full">
-        <button className="border-none p-1 font-bold text-white mt-20 leading-7 text-sm rounded w-full bg-emerald-800">
+      <div className=" flex mx-5 flex-col h-full  justify-end ">
+        <div className="border-none p-3 font-bold text-white flex mb-10 justify-center items-center leading-7 rounded w-full bg-emerald-800">
           <Link to="/captainLogin">Sign In as Captain</Link>
-        </button>
+        </div>
       </div>
     </div>
   );

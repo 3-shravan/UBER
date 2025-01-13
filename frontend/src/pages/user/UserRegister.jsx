@@ -31,28 +31,33 @@ const UserRegister = () => {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    console.log(formdata);
+    setFormData({
+      fullname: {
+        firstname: "",
+        lastname: "",
+      },
+      email: "",
+      password: "",
+    });
   };
 
   return (
     <div className="h-screen w-full flex flex-col">
-      <div className="flex">
-        <img
-          className="w-14  mt-9 ml-4 "
-          src="https://upload.wikimedia.org/wikipedia/commons/c/cc/Uber_logo_2018.png"
-          alt=""
-        />
-        <span className="mt-8">🚗</span>
-      </div>
+      <img
+        className="w-16  mt-11 ml-5"
+        src="https://upload.wikimedia.org/wikipedia/commons/c/cc/Uber_logo_2018.png"
+        alt=""
+      />
+
       <form
         action=""
         onSubmit={(e) => {
           submitHandler(e);
         }}
       >
-        <div className=" mx-4 mt-4 flex flex-col h-full">
+        <div className=" flex mx-5 mt-8 flex-col h-full">
           <label
-            className="font-semibold text-zinc-900 leading-7 text-base py-1 w-full inline-block"
+            className="font-semibold text-zinc-900 leading-7 text-xl py-1 w-full inline-block"
             htmlFor="firstname"
           >
             What's your Name
@@ -66,7 +71,8 @@ const UserRegister = () => {
                 handleChange(e);
               }}
               placeholder="firstname"
-              className=" text-sm rounded w-1/2  bg-[#eeee] py-2.5 px-3 placeholder-zinc-500 font-semibold border-none focus:outline-yellow-500 "
+              required
+              className="  rounded w-1/2  bg-[#eeee] py-3 px-4 placeholder-zinc-500 font-semibold border-none focus:outline-yellow-500 "
             />
             <input
               type="text"
@@ -76,12 +82,12 @@ const UserRegister = () => {
                 handleChange(e);
               }}
               placeholder="lastname"
-              className=" text-sm rounded bg-[#eeee] w-1/2 py-2.5 px-3 placeholder-zinc-500 font-semibold border-none focus:outline-yellow-500 "
+              className="  rounded bg-[#eeee] w-1/2 py-3 px-4 placeholder-zinc-500 font-semibold border-none focus:outline-yellow-500 "
             />
           </div>
 
           <label
-            className="font-semibold text-zinc-900 leading-7 text-base py-1"
+            className="font-semibold text-zinc-900 leading-7  text-xl py-1 mt-4"
             htmlFor="email"
           >
             What's your Email
@@ -94,10 +100,11 @@ const UserRegister = () => {
               handleChange(e);
             }}
             placeholder="email@example.com"
-            className=" text-sm rounded bg-[#eeee] py-2.5 px-3 placeholder-zinc-500 font-semibold border-none focus:outline-yellow-500 "
+            required
+            className="  rounded bg-[#eeee] py-3 px-4 placeholder-zinc-500 font-semibold border-none focus:outline-yellow-500 "
           />
           <label
-            className="font-semibold text-zinc-900 leading-7 text-base py-1"
+            className="font-semibold text-zinc-900 leading-7 text-xl   py-1 mt-4"
             htmlFor="password"
           >
             Enter Password
@@ -110,25 +117,26 @@ const UserRegister = () => {
               handleChange(e);
             }}
             placeholder="password"
-            className=" text-sm rounded bg-[#eeee] py-2.5 px-3 placeholder-zinc-500 font-semibold border-none focus:outline-yellow-500 "
+            required
+            className="  rounded bg-[#eeee] py-3 px-4 placeholder-zinc-500 font-semibold border-none focus:outline-yellow-500 "
           />
-          <button className="border-none p-1 font-bold text-white mt-5 leading-7 rounded w-full bg-black">
+          <button className="border-none p-3 text-lg font-bold text-white mt-6  rounded w-full bg-black">
             Sign In
           </button>
         </div>
       </form>
-      <div className="flex items-center justify-center mt-1 w-full">
-        <span className="text-xs font-medium text-zinc-800">
+      <div className="flex items-center justify-center mt-1.5 w-full">
+        <span className="text-sm font-medium text-zinc-800">
           Already have a Account?{" "}
           <Link to="/userLogin" className="text-blue-400">
             Login here
           </Link>
         </span>
       </div>
-      <div className=" flex mx-4 mt-6 flex-col h-full">
-        <button className="border-none p-1 font-bold text-white mt-1 leading-7 text-sm rounded w-full bg-emerald-800">
-          <Link to="/userLogin">Sign In as Captain</Link>
-        </button>
+      <div className=" flex mx-5 flex-col h-full  justify-end ">
+        <div className="border-none p-3 font-bold text-white flex mb-10 justify-center items-center leading-7 rounded w-full bg-emerald-800">
+          <Link to="/captainLogin">Sign In as Captain</Link>
+        </div>
       </div>
     </div>
   );
