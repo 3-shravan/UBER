@@ -14,6 +14,7 @@ const UserLogin = () => {
 
   const submitHandler = (e) => {
     e.preventDefault();
+    console.log(formData)
     setFormData({ email: "", password: "" });
   };
 
@@ -35,7 +36,7 @@ const UserLogin = () => {
             htmlFor="email"
             className="font-semibold text-zinc-900 leading-7 text-xl py-1"
           >
-            What's your email
+            What's your Email
           </label>
           <input
             type="email"

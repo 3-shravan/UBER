@@ -31,6 +31,7 @@ const UserRegister = () => {
 
   const submitHandler = (e) => {
     e.preventDefault();
+    console.log(formdata)
     setFormData({
       fullname: {
         firstname: "",
@@ -134,10 +135,17 @@ const UserRegister = () => {
         </span>
       </div>
       <div className=" flex mx-5 flex-col h-full  justify-end ">
-        <div className="border-none p-3 font-bold text-white flex mb-10 justify-center items-center leading-7 rounded w-full bg-emerald-800">
-          <Link to="/captainLogin">Sign In as Captain</Link>
+        <div className="border-none pb-2 text-center font-semibold  text-zinc-500 leading-tight flex text-xs justify-center items-center rounded w-full">
+          {" "}
+          <p>
+            {" "}
+            This side is protected by reCAPTHCA and the{" "}
+            <span className="underline cursor-pointer">Google Policy</span> and{" "}
+            <span className="underline cursor-pointer">Terms of Services Apply</span>{" "}
+          </p>
         </div>
       </div>
+     
     </div>
   );
 };

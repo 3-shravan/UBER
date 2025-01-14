@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
+import { userDataContext } from "../../context/userContext";
 
 const CaptainLogin = () => {
   const [formData, setFormData] = useState({ email: "", password: "" });
+  const [user, setUser] = useContext(userDataContext);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -14,6 +16,7 @@ const CaptainLogin = () => {
 
   const submitHandler = (e) => {
     e.preventDefault();
+    console.log(formData);
     setFormData({ email: "", password: "" });
   };
   return (
@@ -39,7 +42,7 @@ const CaptainLogin = () => {
             htmlFor="email"
             className="font-semibold text-zinc-900 leading-7 text-xl py-1"
           >
-            What's your email Captain
+            What's your Email
           </label>
           <input
             type="email"
@@ -78,15 +81,15 @@ const CaptainLogin = () => {
       <div className="flex items-center justify-center mt-1.5 w-full">
         <span className="text-sm font-medium text-zinc-800">
           {" "}
-          New Captain ?{" "}
+          Join a fleet?{" "}
           <Link to="/captainRegister" className="text-blue-400">
-            Create new Account for Captain
+            Register as a Captain
           </Link>
         </span>
       </div>
 
       <div className=" flex mx-5 flex-col h-full  justify-end ">
-        <div className="border-none p-3 font-bold text-white flex mb-10 justify-center items-center leading-7 rounded w-full bg-yellow-600">
+        <div className="border-none p-3 font-bold text-white flex mb-10 justify-center items-center leading-7 rounded w-full bg-yellow-500">
           <Link to="/userLogin">Sign In as User</Link>
         </div>
       </div>
