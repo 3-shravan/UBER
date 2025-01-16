@@ -1,7 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
+import { userDataContext } from "../../context/userContext";
+import { useNavigate } from "react-router-dom";
 
 const UserRegister = () => {
+  const [user, setUser] = useContext(userDataContext);
+  const navigate = useNavigate();
   const [formdata, setFormData] = useState({
     fullname: {
       firstname: "",
@@ -29,17 +34,31 @@ const UserRegister = () => {
     }
   };
 
-  const submitHandler = (e) => {
+  const submitHandler = async (e) => {
     e.preventDefault();
-    console.log(formdata)
-    setFormData({
-      fullname: {
-        firstname: "",
-        lastname: "",
-      },
-      email: "",
-      password: "",
-    });
+    try {
+      const response = await axios.post(
+        "http://localhost:3000/register",
+        formdata
+      );
+      const { data, status } = response;
+      if (status === 201) {
+        setUser(data.user);
+        localStorage.setItem("token", data.token);
+        navigate("/home");
+      }
+    } catch (error) {
+      alert(error.response.data.message);
+    } finally {
+      setFormData({
+        fullname: {
+          firstname: "",
+          lastname: "",
+        },
+        email: "",
+        password: "",
+      });
+    }
   };
 
   return (
@@ -140,12 +159,15 @@ const UserRegister = () => {
           <p>
             {" "}
             This side is protected by reCAPTHCA and the{" "}
-            <span className="underline cursor-pointer">Google Policy</span> and{" "}
-            <span className="underline cursor-pointer">Terms of Services Apply</span>{" "}
+            <span className="underline cursor-pointer">
+              Google Policy
+            </span> and{" "}
+            <span className="underline cursor-pointer">
+              Terms of Services Apply
+            </span>{" "}
           </p>
         </div>
       </div>
-     
     </div>
   );
 };

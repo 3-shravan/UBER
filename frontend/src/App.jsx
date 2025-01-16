@@ -6,7 +6,8 @@ import UserLogin from "./pages/user/UserLogin";
 import UserRegister from "./pages/user/UserRegister";
 import CaptainLogin from "./pages/captain/CaptainLogin";
 import CaptainRegister from "./pages/captain/CaptainRegister";
-import Home from './pages/Home'
+import Home from "./pages/Home";
+import CaptainHome from "./pages/CaptainHome";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path="/captainLogin" element={<CaptainLogin />} />
         <Route path="/captainRegister" element={<CaptainRegister />} />
         <Route path="/home" element={<Home />} />
+        <Route path="/captainHome" element={<CaptainHome />} />
       </Routes>
     </div>
   );

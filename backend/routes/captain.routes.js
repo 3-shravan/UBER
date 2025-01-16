@@ -16,7 +16,7 @@ router.post('/register', [
 
    body('vehicle.vehicleType').isIn(process.env.VEHICLE_TYPE).withMessage('Invalid vehicle type'),
 
-   body('vehicle.vehicleCapacity').isInt({ min: process.env.MIN_VEHICLE_CAPACITY, max: process.env.MAX_VEHICLE_CAPACITY }).withMessage('Capacity must be a number')
+   body('vehicle.vehicleCapacity').isInt({ min: process.env.MIN_VEHICLE_CAPACITY},{ max: process.env.MAX_VEHICLE_CAPACITY }).withMessage('Capacity must be a number')
 
 ], captainController.register)
 

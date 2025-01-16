@@ -1,11 +1,12 @@
 import React, { useContext, useState } from "react";
-import { Link } from "react-router-dom";
-import { userDataContext } from "../../context/userContext";
+import { Link, useNavigate } from "react-router-dom";
+import { CaptainDataContext } from "../../context/captianContext";
+import axios from "axios";
 
 const CaptainLogin = () => {
   const [formData, setFormData] = useState({ email: "", password: "" });
-  const [user, setUser] = useContext(userDataContext);
-
+  const [captain, setCaptain] = useContext(CaptainDataContext);
+  const navigate = useNavigate();
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
@@ -14,10 +15,24 @@ const CaptainLogin = () => {
     }));
   };
 
-  const submitHandler = (e) => {
+  const submitHandler = async (e) => {
     e.preventDefault();
-    console.log(formData);
-    setFormData({ email: "", password: "" });
+    try {
+      const response = await axios.post(
+        "http://localhost:3000/captain/login",
+        formData
+      );
+      const { data, status } = response;
+      if (status === 200) {
+        setCaptain(data.captain);
+        localStorage.setItem("token", data.token);
+        navigate("/captainHome");
+      }
+    } catch (error) {
+      alert(error.response.data.message);
+    } finally {
+      setFormData({ email: "", password: "" });
+    }
   };
   return (
     <div className="h-screen w-full flex flex-col">

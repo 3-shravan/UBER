@@ -1,7 +1,12 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useContext, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { CaptainDataContext } from "../../context/captianContext";
+import axios from "axios";
 
 const CaptainRegister = () => {
+  const navigate = useNavigate();
+  const [captain, setCaptain] = useContext(CaptainDataContext);
+
   const [formdata, setFormData] = useState({
     fullname: {
       firstname: "",
@@ -9,6 +14,12 @@ const CaptainRegister = () => {
     },
     email: "",
     password: "",
+    vehicle: {
+      vehicleNo: "",
+      vehicleType: "",
+      vehicleCapacity: "",
+      vehicleColor: "",
+    },
   });
 
   const handleChange = (e) => {
@@ -21,6 +32,19 @@ const CaptainRegister = () => {
           [name]: value,
         },
       }));
+    } else if (
+      name === "vehicleNo" ||
+      name === "vehicleCapacity" ||
+      name === "vehicleColor" ||
+      name === "vehicleType"
+    ) {
+      setFormData((prev) => ({
+        ...prev,
+        vehicle: {
+          ...prev.vehicle,
+          [name]: value,
+        },
+      }));
     } else {
       setFormData((prev) => ({
         ...prev,
@@ -29,17 +53,38 @@ const CaptainRegister = () => {
     }
   };
 
-  const submitHandler = (e) => {
+  const submitHandler = async (e) => {
     e.preventDefault();
     console.log(formdata);
-    setFormData({
-      fullname: {
-        firstname: "",
-        lastname: "",
-      },
-      email: "",
-      password: "",
-    });
+    try {
+      const response = await axios.post(
+        "http://localhost:3000/captain/register",
+        formdata
+      );
+      const { data, status } = response;
+      if (status === 201) {
+        setCaptain(data.captain);
+        localStorage.setItem("token", data.token);
+        navigate("/captainHome");
+      }
+    } catch (error) {
+      alert(error.response.data.error);
+    } finally {
+      setFormData({
+        fullname: {
+          firstname: "",
+          lastname: "",
+        },
+        email: "",
+        password: "",
+        vehicle: {
+          vehicleNo: "",
+          vehicleType: "",
+          vehicleCapacity: "",
+          vehicleColor: "",
+        },
+      });
+    }
   };
 
   return (
@@ -126,6 +171,58 @@ const CaptainRegister = () => {
             required
             className="  rounded bg-[#eeee] py-3 px-4 placeholder-zinc-500 font-semibold border-none focus:outline-yellow-500 "
           />
+          <label
+            className="font-semibold text-zinc-900 leading-7 text-xl py-1 w-full inline-block"
+            htmlFor="vehicleNo"
+          >
+            Vehicle
+          </label>
+          <div className="flex gap-2 wrap  ">
+            <input
+              type="text"
+              name="vehicleNo"
+              value={formdata.vehicle.vehicleNo}
+              onChange={(e) => {
+                handleChange(e);
+              }}
+              placeholder=" Vehicle no."
+              required
+              className="  rounded w-1/2  bg-[#eeee] py-3 px-4 placeholder-zinc-500 font-semibold border-none focus:outline-yellow-500 "
+            />
+            <select
+              id="vehicleType"
+              name="vehicleType"
+              value={formdata.vehicle.vehicleType} // Bind to formdata.vehicle.vehicleType
+              onChange={handleChange} // Use the same handleChange function
+              className="rounded w-1/2 bg-[#eeee] py-3 px-4 placeholder-zinc-500 font-semibold border-none focus:outline-yellow-500"
+            >
+              <option value="">Select Vehicle Type</option>
+              <option value="car">Car</option>
+              <option value="bike">Bike</option>
+              <option value="auto">Auto</option>
+            </select>
+            <input
+              type="text"
+              name="vehicleCapacity"
+              value={formdata.vehicle.vehicleCapacity}
+              onChange={(e) => {
+                handleChange(e);
+              }}
+              placeholder="Vehicle Capacity"
+              className="  rounded bg-[#eeee] w-1/2 py-3 px-4 placeholder-zinc-500 font-semibold border-none focus:outline-yellow-500 "
+            />
+            <input
+              type="text"
+              name="vehicleColor"
+              value={formdata.vehicle.vehicleColor}
+              onChange={(e) => {
+                handleChange(e);
+              }}
+              placeholder="Vehicle Color"
+              className="  rounded bg-[#eeee] w-1/2 py-3 px-4 placeholder-zinc-500 font-semibold border-none focus:outline-yellow-500 "
+            />
+          </div>
+
           <button className="border-none p-3 text-lg font-bold text-white mt-6  rounded w-full bg-black">
             Sign In
           </button>
@@ -145,8 +242,12 @@ const CaptainRegister = () => {
           <p>
             {" "}
             This side is protected by reCAPTHCA and the{" "}
-            <span className="underline cursor-pointer">Google Policy</span> and{" "}
-            <span className="underline cursor-pointer">Terms of Services Apply</span>{" "}
+            <span className="underline cursor-pointer">
+              Google Policy
+            </span> and{" "}
+            <span className="underline cursor-pointer">
+              Terms of Services Apply
+            </span>{" "}
           </p>
         </div>
       </div>
