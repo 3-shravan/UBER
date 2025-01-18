@@ -33,9 +33,11 @@ module.exports.register = async (req, res, next) => {
    });
 
    const token = await captain.generateAuthToken();
-   // res.cookie('token', token);
+   const role = captain.role;
+   res.cookie('token', token);
 
-   res.status(201).json({ token, captain });
+
+   res.status(201).json({ token, role, captain, message: 'Captain Registered Successfull' });
 
 
 }
@@ -59,9 +61,11 @@ module.exports.login = async (req, res, next) => {
    }
 
    const token = await captain.generateAuthToken();
+   const role = captain.role;
+
    res.cookie('token', token);
 
-   res.status(200).json({ token, captain });
+   res.status(200).json({ token, role, captain, message: 'Captain Registered Successfull' });
 
 
 

@@ -45,6 +45,8 @@ const UserRegister = () => {
       if (status === 201) {
         setUser(data.user);
         localStorage.setItem("token", data.token);
+        localStorage.setItem("role", data.role);
+
         navigate("/home");
       }
     } catch (error) {

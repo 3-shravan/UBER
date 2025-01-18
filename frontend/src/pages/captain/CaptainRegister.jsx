@@ -65,6 +65,8 @@ const CaptainRegister = () => {
       if (status === 201) {
         setCaptain(data.captain);
         localStorage.setItem("token", data.token);
+        localStorage.setItem("role", data.role);
+
         navigate("/captainHome");
       }
     } catch (error) {
@@ -106,7 +108,7 @@ const CaptainRegister = () => {
           submitHandler(e);
         }}
       >
-        <div className=" flex mx-5 mt-8 flex-col h-full">
+        <div className=" flex mx-5 mt-4 flex-col h-full">
           <label
             className="font-semibold text-zinc-900 leading-7 text-xl py-1 w-full inline-block"
             htmlFor="firstname"
@@ -138,7 +140,7 @@ const CaptainRegister = () => {
           </div>
 
           <label
-            className="font-semibold text-zinc-900 leading-7  text-xl py-1 mt-4"
+            className="font-semibold text-zinc-900 leading-7  text-xl py-1 mt-3"
             htmlFor="email"
           >
             What's your Email
@@ -155,7 +157,7 @@ const CaptainRegister = () => {
             className="  rounded bg-[#eeee] py-3 px-4 placeholder-zinc-500 font-semibold border-none focus:outline-yellow-500 "
           />
           <label
-            className="font-semibold text-zinc-900 leading-7 text-xl   py-1 mt-4"
+            className="font-semibold text-zinc-900 leading-7 text-xl   py-1 mt-3"
             htmlFor="password"
           >
             Enter Password
@@ -171,13 +173,11 @@ const CaptainRegister = () => {
             required
             className="  rounded bg-[#eeee] py-3 px-4 placeholder-zinc-500 font-semibold border-none focus:outline-yellow-500 "
           />
-          <label
-            className="font-semibold text-zinc-900 leading-7 text-xl py-1 w-full inline-block"
-            htmlFor="vehicleNo"
-          >
+
+          <span className="font-semibold text-zinc-900 leading-7 text-xl py-1 w-full mt-3 inline-block">
             Vehicle
-          </label>
-          <div className="flex gap-2 wrap  ">
+          </span>
+          <div className="flex  flex-wrap w-full  justify-between ">
             <input
               type="text"
               name="vehicleNo"
@@ -185,18 +185,18 @@ const CaptainRegister = () => {
               onChange={(e) => {
                 handleChange(e);
               }}
-              placeholder=" Vehicle no."
+              placeholder="Number"
               required
-              className="  rounded w-1/2  bg-[#eeee] py-3 px-4 placeholder-zinc-500 font-semibold border-none focus:outline-yellow-500 "
+              className="  rounded  w-[10rem] mb-2 bg-[#eeee] py-3 px-4 placeholder-zinc-500 font-semibold border-none focus:outline-yellow-500 "
             />
             <select
               id="vehicleType"
               name="vehicleType"
               value={formdata.vehicle.vehicleType} // Bind to formdata.vehicle.vehicleType
               onChange={handleChange} // Use the same handleChange function
-              className="rounded w-1/2 bg-[#eeee] py-3 px-4 placeholder-zinc-500 font-semibold border-none focus:outline-yellow-500"
+              className="rounded w-[10rem] mb-2 bg-[#eeee] py-3 px-4 placeholder-zinc-500 font-semibold border-none focus:outline-yellow-500"
             >
-              <option value="">Select Vehicle Type</option>
+              <option value="">Select Vehicle</option>
               <option value="car">Car</option>
               <option value="bike">Bike</option>
               <option value="auto">Auto</option>
@@ -208,8 +208,8 @@ const CaptainRegister = () => {
               onChange={(e) => {
                 handleChange(e);
               }}
-              placeholder="Vehicle Capacity"
-              className="  rounded bg-[#eeee] w-1/2 py-3 px-4 placeholder-zinc-500 font-semibold border-none focus:outline-yellow-500 "
+              placeholder="Capacity"
+              className="  rounded bg-[#eeee] w-[10rem] mb-2 py-3 px-4 placeholder-zinc-500 font-semibold border-none focus:outline-yellow-500 "
             />
             <input
               type="text"
@@ -218,12 +218,12 @@ const CaptainRegister = () => {
               onChange={(e) => {
                 handleChange(e);
               }}
-              placeholder="Vehicle Color"
-              className="  rounded bg-[#eeee] w-1/2 py-3 px-4 placeholder-zinc-500 font-semibold border-none focus:outline-yellow-500 "
+              placeholder="Color"
+              className="  rounded bg-[#eeee] w-[10rem] mb-2 py-3 px-4 placeholder-zinc-500 font-semibold border-none focus:outline-yellow-500 "
             />
           </div>
 
-          <button className="border-none p-3 text-lg font-bold text-white mt-6  rounded w-full bg-black">
+          <button className="border-none p-3 text-lg font-bold text-white mt-2  rounded w-full bg-black">
             Sign In
           </button>
         </div>

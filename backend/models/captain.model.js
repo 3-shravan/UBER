@@ -28,6 +28,10 @@ const captainSchema = new mongoose.Schema({
       type: String,
 
    },
+   role: {
+      type: String,
+      default: 'captain'
+   },
 
    vehicle: {
 

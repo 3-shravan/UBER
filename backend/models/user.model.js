@@ -24,22 +24,26 @@ const userSchema = new mongoose.Schema({
       type: String,
       required: true,
       select: false
+   },
+   role: {
+      type: String,
+      default: 'user'
    }
 
 })
 
-userSchema.methods.generateAuthToken = function(){
-   const token = jwt.sign({_id: this._id},process.env.JWT_SECRET , {expiresIn: process.env.JWT_EXPIRES_IN})
-   return token ;
+userSchema.methods.generateAuthToken = function () {
+   const token = jwt.sign({ _id: this._id }, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRES_IN })
+   return token;
 }
 
 
-userSchema.statics.hashPassword = async function(password){
-  return await bcrypt.hash(password,10)
+userSchema.statics.hashPassword = async function (password) {
+   return await bcrypt.hash(password, 10)
 }
 
-userSchema.methods.comparePassword = async function(password){
-  return await bcrypt.compare(password,this.password)
+userSchema.methods.comparePassword = async function (password) {
+   return await bcrypt.compare(password, this.password)
 }
 
 const userModel = mongoose.model('user', userSchema);

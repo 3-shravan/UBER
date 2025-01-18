@@ -26,6 +26,8 @@ const CaptainLogin = () => {
       if (status === 200) {
         setCaptain(data.captain);
         localStorage.setItem("token", data.token);
+        localStorage.setItem("role", data.role);
+
         navigate("/captainHome");
       }
     } catch (error) {

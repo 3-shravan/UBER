@@ -8,7 +8,8 @@ import CaptainLogin from "./pages/captain/CaptainLogin";
 import CaptainRegister from "./pages/captain/CaptainRegister";
 import Home from "./pages/Home";
 import CaptainHome from "./pages/CaptainHome";
-
+import UserProtectedRoutes from "./components/UserProtectedRoutes";
+import CaptainProtectedRoutes from "./components/CaptainProtectedRoutes";
 function App() {
   return (
     <div>
@@ -18,8 +19,22 @@ function App() {
         <Route path="/userRegister" element={<UserRegister />} />
         <Route path="/captainLogin" element={<CaptainLogin />} />
         <Route path="/captainRegister" element={<CaptainRegister />} />
-        <Route path="/home" element={<Home />} />
-        <Route path="/captainHome" element={<CaptainHome />} />
+        <Route
+          path="/home"
+          element={
+            <UserProtectedRoutes>
+              <Home />
+            </UserProtectedRoutes>
+          }
+        />
+        <Route
+          path="/captainHome"
+          element={
+            <CaptainProtectedRoutes>
+              <CaptainHome />
+            </CaptainProtectedRoutes>
+          }
+        />
       </Routes>
     </div>
   );
