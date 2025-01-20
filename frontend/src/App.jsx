@@ -8,13 +8,21 @@ import CaptainLogin from "./pages/captain/CaptainLogin";
 import CaptainRegister from "./pages/captain/CaptainRegister";
 import Home from "./pages/Home";
 import CaptainHome from "./pages/CaptainHome";
+import UnprotectedRoutes from "./components/UnprotectedRoutes";
 import UserProtectedRoutes from "./components/UserProtectedRoutes";
 import CaptainProtectedRoutes from "./components/CaptainProtectedRoutes";
 function App() {
   return (
     <div>
       <Routes>
-        <Route path="/" element={<LandingPage />} />
+        <Route
+          path="/"
+          element={
+            <UnprotectedRoutes>
+              <LandingPage />
+            </UnprotectedRoutes>
+          }
+        />
         <Route path="/userLogin" element={<UserLogin />} />
         <Route path="/userRegister" element={<UserRegister />} />
         <Route path="/captainLogin" element={<CaptainLogin />} />

@@ -11,19 +11,22 @@ const UserProtectedRoutes = ({ children }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchProfile = async () => {
-      if (!token || role !== "user") {
-        navigate("/userLogin");
-        return;
-      }
+    if (token && role == "captain") {
+      navigate("/captainHome");
+      return;
+    }
+    if (!token || role != "user") {
+      navigate("/userLogin");
+      return;
+    }
 
+    const fetchProfile = async () => {
       try {
         const response = await axios.get("http://localhost:3000/profile", {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         });
-        console.log(response);
         if (response.status == 200) {
           setIsLoading(false);
           setAuth((prev) => ({
@@ -32,15 +35,15 @@ const UserProtectedRoutes = ({ children }) => {
           }));
         }
       } catch (error) {
-        if (role == "user") {
-          localStorage.removeItem("token");
-          localStorage.removeItem("role");
-        }
         alert(
           error.response.data?.message ||
             error.response?.data?.error ||
             "Some Error Occured"
         );
+        if (role == "user") {
+          localStorage.removeItem("token");
+          localStorage.removeItem("role");
+        }
         navigate("/userLogin");
       }
     };
@@ -49,11 +52,7 @@ const UserProtectedRoutes = ({ children }) => {
   }, [token, role]);
 
   if (isLoading) {
-    return (
-      <div style={{ textAlign: "center", marginTop: "50px" }}>
-        <h2>Loading...</h2>
-      </div>
-    );
+    return <div className="mt-12 text-center font-semibold ">Loading...</div>;
   }
 
   return <>{children}</>;

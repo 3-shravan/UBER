@@ -55,7 +55,6 @@ const CaptainRegister = () => {
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    console.log(formdata);
     try {
       const response = await axios.post(
         "http://localhost:3000/captain/register",
