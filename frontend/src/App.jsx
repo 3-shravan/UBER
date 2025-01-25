@@ -15,18 +15,14 @@ function App() {
   return (
     <div>
       <Routes>
-        <Route
-          path="/"
-          element={
-            <UnprotectedRoutes>
-              <LandingPage />
-            </UnprotectedRoutes>
-          }
-        />
-        <Route path="/userLogin" element={<UserLogin />} />
-        <Route path="/userRegister" element={<UserRegister />} />
-        <Route path="/captainLogin" element={<CaptainLogin />} />
-        <Route path="/captainRegister" element={<CaptainRegister />} />
+        <Route element={<UnprotectedRoutes />}>
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/userLogin" element={<UserLogin />} />
+          <Route path="/userRegister" element={<UserRegister />} />
+          <Route path="/captainLogin" element={<CaptainLogin />} />
+          <Route path="/captainRegister" element={<CaptainRegister />} />
+        </Route>
+
         <Route
           path="/home"
           element={

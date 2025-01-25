@@ -2,9 +2,12 @@ import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { CaptainDataContext } from "../../context/captianContext";
 import axios from "axios";
+import { useAuth } from "../../context/AuthContext";
+import { setRoleAndToken } from "../../utils/LocalStorage";
 
 const CaptainRegister = () => {
   const navigate = useNavigate();
+  const { setAuth } = useAuth();
   const [captain, setCaptain] = useContext(CaptainDataContext);
 
   const [formdata, setFormData] = useState({
@@ -63,13 +66,20 @@ const CaptainRegister = () => {
       const { data, status } = response;
       if (status === 201) {
         setCaptain(data.captain);
-        localStorage.setItem("token", data.token);
-        localStorage.setItem("role", data.role);
+        setAuth({
+          token: data.token,
+          role: data.role,
+        })
+        setRoleAndToken(data.role, data.token);
 
         navigate("/captainHome");
       }
     } catch (error) {
-      alert(error.response.data.error);
+      const errors =
+        error.response.data?.message ||
+        error.response.data?.error ||
+        "Something went wrong";
+      alert(errors);
     } finally {
       setFormData({
         fullname: {

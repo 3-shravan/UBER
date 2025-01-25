@@ -1,12 +1,14 @@
 import React, { useContext, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { userDataContext } from "../../context/userContext";
-import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
+import { setRoleAndToken } from "../../utils/LocalStorage";
 
 const UserLogin = () => {
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [user, setUser] = useContext(userDataContext);
+  const { auth, setAuth } = useAuth();
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -27,12 +29,19 @@ const UserLogin = () => {
       if (response.status === 200) {
         const data = response.data;
         setUser(data.user);
-        localStorage.setItem("token", data.token);
-        localStorage.setItem("role", data.role);
+        setAuth({
+          token: data.token,
+          role: data.role,
+        });
+        setRoleAndToken(data.role, data.token);
         navigate("/home");
       }
     } catch (err) {
-      alert(err.response.data.message);
+      const errors =
+        err.response.data?.message ||
+        err.response.data?.error ||
+        "Something went wrong";
+      alert(erros);
     } finally {
       setFormData({ email: "", password: "" });
     }

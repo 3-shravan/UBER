@@ -2,10 +2,11 @@ import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useAuth } from "../context/AuthContext";
+import { removeRoleAndToken } from "../utils/LocalStorage";
 
 const UserProtectedRoutes = ({ children }) => {
   const [isLoading, setIsLoading] = useState(true);
-  const [auth, setAuth] = useAuth();
+  const { auth, setAuth } = useAuth();
   const role = localStorage.getItem("role");
   const token = localStorage.getItem("token");
   const navigate = useNavigate();
@@ -35,15 +36,14 @@ const UserProtectedRoutes = ({ children }) => {
           }));
         }
       } catch (error) {
-        alert(
-          error.response.data?.message ||
-            error.response?.data?.error ||
-            "Some Error Occured"
-        );
         if (role == "user") {
-          localStorage.removeItem("token");
-          localStorage.removeItem("role");
+          removeRoleAndToken();
         }
+        const errors =
+          error.response?.data?.message ||
+          error.response?.data?.error ||
+          "Some Error Occured";
+        alert(errors);
         navigate("/userLogin");
       }
     };

@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 const UnprotectedRoutes = ({ children }) => {
   const token = localStorage.getItem("token");
@@ -15,7 +15,7 @@ const UnprotectedRoutes = ({ children }) => {
     }
   }, [token, role]);
 
-  return <>{children}</>;
+  return <Outlet/>
 };
 
 export default UnprotectedRoutes;

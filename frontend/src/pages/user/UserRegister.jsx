@@ -1,12 +1,13 @@
 import React, { useState, useContext } from "react";
-import { Link } from "react-router-dom";
 import axios from "axios";
 import { userDataContext } from "../../context/userContext";
-import { useNavigate } from "react-router-dom";
-
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
+import { setRoleAndToken } from "../../utils/LocalStorage";
 const UserRegister = () => {
-  const [user, setUser] = useContext(userDataContext);
   const navigate = useNavigate();
+  const { setAuth } = useAuth();
+  const [user, setUser] = useContext(userDataContext);
   const [formdata, setFormData] = useState({
     fullname: {
       firstname: "",
@@ -44,13 +45,20 @@ const UserRegister = () => {
       const { data, status } = response;
       if (status === 201) {
         setUser(data.user);
-        localStorage.setItem("token", data.token);
-        localStorage.setItem("role", data.role);
+        setAuth({
+          token: data.token,
+          role: data.role,
+        });
+        setRoleAndToken(data.role, data.token);
 
         navigate("/home");
       }
     } catch (error) {
-      alert(error.response.data.message);
+      const errors =
+        error.response.data?.message ||
+        error.response.data?.error ||
+        "Something went wrong";
+      alert(errors);
     } finally {
       setFormData({
         fullname: {

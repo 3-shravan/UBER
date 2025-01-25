@@ -9,14 +9,14 @@ import CaptainContext from "./context/captianContext.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <AuthProvider>
-      <UserContext>
-        <CaptainContext>
-          <BrowserRouter>
+    <BrowserRouter>
+      <AuthProvider>
+        <UserContext>
+          <CaptainContext>
             <App />
-          </BrowserRouter>
-        </CaptainContext>
-      </UserContext>
-    </AuthProvider>
+          </CaptainContext>
+        </UserContext>
+      </AuthProvider>
+    </BrowserRouter>
   </StrictMode>
 );
